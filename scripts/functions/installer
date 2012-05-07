@@ -28,7 +28,7 @@ install_setup()
     : rvm_stored_umask:${rvm_stored_umask:=$(umask)}
 
     rvm_rvmrc_files=("/etc/rvmrc" "$HOME/.rvmrc")
-    if [[ -n "${rvm_prefix:-}" ]] && ! [[ "$HOME/.rvmrc" -ef "${rvm_prefix}/.rvmrc" ]]
+    if [[ -n "${rvm_prefix:-}" ]] && ! ( [[ "$HOME/.rvmrc" -ef "${rvm_prefix}/.rvmrc" ]] || [[ "${HOME%/}/.rvmrc" == "${rvm_prefix%/}/.rvmrc" ]] )
        then rvm_rvmrc_files+=( "${rvm_prefix}/.rvmrc" )
     fi
     for file in "${rvm_rvmrc_files[@]}"
@@ -107,7 +107,7 @@ determine_install_path()
     : rvm_stored_umask:${rvm_stored_umask:=$(umask)}
 
     rvm_rvmrc_files=("/etc/rvmrc" "$HOME/.rvmrc")
-    if [[ -n "${rvm_prefix:-}" ]] && ! [[ "$HOME/.rvmrc" -ef "${rvm_prefix}/.rvmrc" ]]
+    if [[ -n "${rvm_prefix:-}" ]] && ! ( [[ "$HOME/.rvmrc" -ef "${rvm_prefix}/.rvmrc" ]] || [[ "${HOME%/}/.rvmrc" == "${rvm_prefix%/}/.rvmrc" ]] )
        then rvm_rvmrc_files+=( "${rvm_prefix}/.rvmrc" )
     fi
     for rvmrc in "${rvm_rvmrc_files[@]}"
@@ -839,7 +839,7 @@ if [ -n \"\${BASH_VERSION:-}\" -o -n \"\${ZSH_VERSION:-}\" ] ; then
   : rvm_stored_umask:\${rvm_stored_umask:=\$(umask)}
   # Load user rvmrc configurations, if exist
   rvm_rvmrc_files=(\"/etc/rvmrc\" \"$HOME/.rvmrc\")
-  if [[ -n \"\${rvm_prefix:-}\" ]] && ! [[ \"\$HOME/.rvmrc\" -ef \"\${rvm_prefix}/.rvmrc\" ]]
+  if [[ -n \"\${rvm_prefix:-}\" ]] && ! ( [[ \"\$HOME/.rvmrc\" -ef \"\${rvm_prefix}/.rvmrc\" ]] || [[ \"\${HOME%/}/.rvmrc\" == \"\${rvm_prefix%/}/.rvmrc\" ]] )
      then rvm_rvmrc_files+=( \"\${rvm_prefix}/.rvmrc\" )
   fi
   

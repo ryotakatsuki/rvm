@@ -11,7 +11,7 @@ __rvm_load_rvmrc()
   : rvm_stored_umask:${rvm_stored_umask:=$(umask)}
 
   rvm_rvmrc_files=("/etc/rvmrc" "$HOME/.rvmrc")
-  if [[ -n "${rvm_prefix:-}" ]] && ! [[ "$HOME/.rvmrc" -ef "${rvm_prefix}/.rvmrc" ]]
+  if [[ -n "${rvm_prefix:-}" ]] && ! ( [[ "$HOME/.rvmrc" -ef "${rvm_prefix}/.rvmrc" ]] || [[ "${HOME%/}/.rvmrc" == "${rvm_prefix%/}/.rvmrc" ]] )
      then rvm_rvmrc_files+=( "${rvm_prefix}/.rvmrc" )
   fi
   for _file in "${rvm_rvmrc_files[@]}"
